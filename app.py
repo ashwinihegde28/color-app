@@ -1,9 +1,7 @@
 import os
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template
 import socket
 import random
-import os
 
 app = Flask(__name__)
 
@@ -17,13 +15,11 @@ color_codes = {
     "purple": "#7d3c98"
 }
 
-#color = os.environ.get('APP_COLOR') or random.choice(["red","green"])
-#color = os.environ.get('APP_COLOR') or random.choice(["white"])
-#color = os.environ.get('APP_COLOR') or random.choice(["pink","blue","yellow"])
+# Define the color variable (uncomment one or modify as needed)
+color = os.environ.get('APP_COLOR') or random.choice(["red", "green", "white", "pink", "blue", "yellow"])
 
 @app.route("/")
 def main():
-    #return 'Hello'
     #print(color)
     return render_template('hello.html', name=socket.gethostname(), color=color_codes[color])
 
@@ -33,9 +29,9 @@ def new_color(new_color):
 
 @app.route('/read_file')
 def read_file():
-    f = open("/data/testfile.txt")
-    contents = f.read()
+    with open("/data/testfile.txt") as f:
+        contents = f.read()
     return render_template('hello.html', name=socket.gethostname(), contents=contents, color=color_codes[color])
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="8080")
+    app.run(host="0.0.0.0", port=8080)
