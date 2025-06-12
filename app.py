@@ -24,7 +24,7 @@ color_codes = {
 @app.route("/")
 def main():
     #return 'Hello'
-    //print(color)
+    #print(color)
     return render_template('hello.html', name=socket.gethostname(), color=color_codes[color])
 
 @app.route('/color/<new_color>')
